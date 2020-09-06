@@ -4,19 +4,24 @@ services:
   server:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prod
     depends_on:
       - postgres
-    env_file: .env.local
+    env_file: .env.production
     ports:
       - '9000:3000'
     volumes:
-      - .:/app/
       - /app/node_modules
-    command: npm run start:dev
+    command: npm run start:prod
 
   postgres:
     image: postgres:10.4-alpine
     ports:
       - '5432:5432'
-    env_file: .env.local
+    env_file: .env.production
+    volumes:
+      - dbdata:/data/db
+
+volumes:
+  dbdata:
+  node_modules:
