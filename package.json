@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Tests will be here\n\"",
-    "build": "rimraf ./build && tsc -b tsconfig.json",
+    "build": "rimraf ./build && tsc -b ./tsconfig.json",
     "start:dev": "nodemon",
-    "start:prod": "npm run build && node build/app.js"
+    "start:prod": "npm run build && node ./build/app.js"
   },
   "husky": {
     "hooks": {
