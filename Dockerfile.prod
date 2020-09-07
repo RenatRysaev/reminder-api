@@ -6,10 +6,11 @@ COPY ./package.json .
 COPY ./package-lock.json .
 
 RUN npm install
-RUN npm run build
-RUN npm run test
 
 COPY . .
+
+RUN npm run build
+RUN npm run test
 
 EXPOSE 3000
 
