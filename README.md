@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/RenatRysaev/reminder-api.svg?branch=dev)](https://travis-ci.com/RenatRysaev/reminder-api)
+
 ## Available Scripts
 
 In the project directory, you can run:
