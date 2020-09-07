@@ -9,7 +9,7 @@ env:
   - DOCKER_COMPOSE_VERSION=1.25.4
 
 script:
-  - docker-compose -f docker-compose.prod.yml up -i
+  - docker-compose -f docker-compose.prod.yml up
 
 deploy:
   provider: heroku
