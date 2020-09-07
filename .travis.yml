@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+  - 10
+
+services:
+  - docker
+
+env:
+  - DOCKER_COMPOSE_VERSION=1.25.4
+
+script:
+  - docker-compose build -f docker-compose.prod.yml
+
+deploy:
+  provider: heroku
+  api_key: HEROKU_API_KEY
+  app:
+    master: reminderapi
+    dev: reminderapi
