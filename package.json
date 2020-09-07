@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Tests will be here\n\"",
-    "build": "tsc",
+    "build": "rimraf ./build && tsc",
     "start:dev": "nodemon",
     "start:prod": "npm run build && node build/app.js"
   },
