@@ -11,9 +11,15 @@ env:
 script:
   - docker-compose -f docker-compose.prod.yml up -d --build
 
-deploy:
-  provider: heroku
-  api_key: $HEROKU_API_KEY
-  app:
-    master: reminderapi
-    dev: reminderapi
+after_success:
+  - sudo docker ps
+  - sudo docker tag reminderapi:latest registry.heroku.com/reminderapi/web
+  - docker push registry.heroku.com/reminderapi/web
+#  - if [ $TRAVIS_BRANCH == "master" ] && [ $TRAVIS_PULL_REQUEST = "false" ]; then sudo docker push registry.heroku.com/adam-myangularapp/web; fi
+
+#deploy:
+#  provider: heroku
+#  api_key: $HEROKU_API_KEY
+#  app:
+#    master: reminderapi
+#    dev: reminderapi
