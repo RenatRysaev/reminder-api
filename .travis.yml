@@ -12,14 +12,8 @@ script:
   - docker-compose -f docker-compose.prod.yml up -d --build
 
 after_success:
-  - sudo docker ps
-  - sudo docker tag reminderapi:latest registry.heroku.com/reminderapi/web
-  - docker push registry.heroku.com/reminderapi/web
-#  - if [ $TRAVIS_BRANCH == "master" ] && [ $TRAVIS_PULL_REQUEST = "false" ]; then sudo docker push registry.heroku.com/adam-myangularapp/web; fi
-
-#deploy:
-#  provider: heroku
-#  api_key: $HEROKU_API_KEY
-#  app:
-#    master: reminderapi
-#    dev: reminderapi
+  - curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+  - heroku container:login
+  - heroku container:push web
+#  - sudo docker tag reminderapi:latest registry.heroku.com/reminderapi/web
+#  - sudo docker push registry.heroku.com/reminderapi/web
