@@ -1,3 +1,4 @@
+sudo: required
 language: node_js
 node_js:
   - 10
@@ -11,8 +12,6 @@ env:
 script:
   - docker-compose -f docker-compose.prod.yml up -d --build
 
-after_success:
-  - curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
-  - sudo docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
-  - sudo docker tag reminderapi:latest registry.heroku.com/reminderapi/web
-  - sudo docker push registry.heroku.com/reminderapi/web
+deploy:
+  provider: script
+  script: bash ./deploy_heroku.sh
