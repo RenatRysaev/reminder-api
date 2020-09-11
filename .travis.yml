@@ -15,3 +15,5 @@ script:
 deploy:
   provider: script
   script: bash ./deploy_heroku.sh
+  on:
+    all_branches: true
