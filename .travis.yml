@@ -13,7 +13,7 @@ script:
 
 after_success:
   - curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
-  - heroku container:login
+  - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
   - heroku container:push web
 #  - sudo docker tag reminderapi:latest registry.heroku.com/reminderapi/web
 #  - sudo docker push registry.heroku.com/reminderapi/web
