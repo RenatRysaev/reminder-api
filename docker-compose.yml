@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - postgres
-    env_file: .env.local
+    env_file: .env
     ports:
       - '9000:3000'
     volumes:
@@ -19,4 +19,4 @@ services:
     image: postgres:10.4-alpine
     ports:
       - '5432:5432'
-    env_file: .env.local
+    env_file: .env

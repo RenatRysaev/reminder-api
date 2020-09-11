@@ -11,6 +11,8 @@ app.get('/test', (req, res) => {
 })
 
 app.listen(port, async () => {
+  console.log('process.env.POSTGRES_USER', process.env.POSTGRES_USER)
+  console.log('process.env.POSTGRES_DB', process.env.POSTGRES_DB)
   try {
     await createConnection(config)
     return console.log(`server is listening on ${port}`)
