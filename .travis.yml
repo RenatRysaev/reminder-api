@@ -33,7 +33,7 @@ script:
 after_success:
   - openssl aes-256-cbc -K $encrypted_6f14f6d9e1b8_key -iv $encrypted_6f14f6d9e1b8_iv -in deploy_key.enc -out ~\/deploy_key -d
   - eval "$(ssh-agent -s)"
-  - chmod 600 /tmp/deploy_rsa
-  - ssh-add /tmp/deploy_rsa
-  - echo -e "Host 68.183.73.58\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-  - bash ./deploy.sh
+  - cp .travis/id_rsa ~/.ssh/deploy_rsa
+  - chmod 600 ~/.ssh/deploy_rsa
+  - ssh-add ~/.ssh/deploy_rsa
+  - ssh deploy@68.183.73.58 "echo 'success connected' && exit"
