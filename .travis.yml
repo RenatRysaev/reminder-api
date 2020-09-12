@@ -32,8 +32,8 @@ script:
 #    branch: master, dev
 
 after_success:
-  - openssl aes-256-cbc -K $encrypted_6f14f6d9e1b8_key -iv $encrypted_6f14f6d9e1b8_iv -in deploy_key.enc -out ~\/deploy_key -d
+  - openssl aes-256-cbc -K $encrypted_6f14f6d9e1b8_key -iv $encrypted_6f14f6d9e1b8_iv -in deploy_key.enc -out /tmp/deploy_key -d
   - eval "$(ssh-agent -s)"
-  - chmod 600 ~\/deploy_key
-  - ssh-add /~\/deploy_key
+  - chmod 600 /tmp/deploy_key
+  - ssh-add /tmp/deploy_key
   - ssh deploy@68.183.73.58 "echo 'success connected' && exit"
