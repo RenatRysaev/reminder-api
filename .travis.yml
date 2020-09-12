@@ -2,24 +2,18 @@ sudo: required
 language: node_js
 node_js:
   - 10
-
 services:
   - docker
-
 addons:
   ssh_known_hosts:
     - 68.183.73.58
-
 env:
   - DOCKER_COMPOSE_VERSION=1.25.4
-
 script:
   - echo "build app"
-#  - docker-compose -f docker-compose.prod.yml up -d --build
-
 after_success:
-  - openssl aes-256-cbc -K $encrypted_6f14f6d9e1b8_key -iv $encrypted_6f14f6d9e1b8_iv -in deploy_key.enc -out /tmp/deploy_key -d
+  - openssl aes-256-cbc -K $encrypted_db2095f63ba3_key -iv $encrypted_db2095f63ba3_iv -in deploy_rsa.enc -out /tmp/deploy_rsa -d
   - eval "$(ssh-agent -s)"
-  - chmod 600 /tmp/deploy_key
-  - ssh-add /tmp/deploy_key
+  - chmod 600 /tmp/deploy_rsa
+  - ssh-add /tmp/deploy_rsa
   - ssh deploy@68.183.73.58 "echo 'success connected' && exit"
