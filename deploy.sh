@@ -8,5 +8,6 @@ docker push "${DOCKER_HUB_USER}/reminder-api_postgres:last"
 eval $(ssh-agent -s)
 mkdir -p ~/.ssh
 echo $DEPLOY_SERVER_SSH_PRIVATE_KEY > ~/.ssh/id_rsa
+cat ~/.ssh/id_rsa
 chmod -R 700 ~/.ssh
 ssh -o StrictHostKeyChecking=no deploy@68.183.73.58 "echo 'success connected' && exit"
