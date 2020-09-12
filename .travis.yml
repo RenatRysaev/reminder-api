@@ -6,6 +6,10 @@ node_js:
 services:
   - docker
 
+addons:
+  ssh_known_hosts:
+    - 68.183.73.58
+
 env:
   - DOCKER_COMPOSE_VERSION=1.25.4
 
