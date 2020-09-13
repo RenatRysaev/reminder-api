@@ -1,10 +1,13 @@
 #!/bin/bash
+APP_IMAGE_NAME="${DOCKER_HUB_USER}/reminder-api_server:last"
+DATABASE_IMAGE_NAME="${DOCKER_HUB_USER}/reminder-api_postgres:last"
+
 echo "Push images to docker hub"
 echo $DOCKER_HUB_PASSWORD | docker login --username $DOCKER_HUB_USER --password-stdin
-docker tag reminder-api_server "${DOCKER_HUB_USER}/reminder-api_server:last"
-docker tag postgres:10.4-alpine "${DOCKER_HUB_USER}/reminder-api_postgres:last"
-docker push "${DOCKER_HUB_USER}/reminder-api_server:last"
-docker push "${DOCKER_HUB_USER}/reminder-api_postgres:last"
+docker tag reminder-api_server $APP_IMAGE_NAME
+docker tag postgres:10.4-alpine $DATABASE_IMAGE_NAME
+docker push $APP_IMAGE_NAME
+docker push $DATABASE_IMAGE_NAME
 
 echo "Connect to VPS and up services"
 openssl aes-256-cbc -K $encrypted_db2095f63ba3_key -iv $encrypted_db2095f63ba3_iv -in deploy_rsa.enc -out /tmp/deploy_rsa -d
