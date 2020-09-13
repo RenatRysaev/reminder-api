@@ -15,7 +15,9 @@ tar -czvf deploy.tar.gz ./docker-compose.prod.yml ./Dockerfile.prod ./remote_dep
 scp deploy.tar.gz deploy@68.183.73.58:/home/deploy/
 ssh deploy@68.183.73.58 bash << EOF
   tar -xzf ./deploy.tar.gz
-  echo $DOCKER_HUB_USER
+  echo $DOCKER_HUB_PASSWORD | docker login --username $DOCKER_HUB_USER --password-stdin
+  docker-compose down
+  docker-compose -f ./docker-compose.prod.yml up -d
 EOF
 
 #"tar -xzf ./deploy.tar.gz && bash ./remote_deploy.sh"
