@@ -6,9 +6,12 @@ services:
   - docker
 addons:
   ssh_known_hosts:
-    - $VPS_HOST
+    - ${VPS_HOST}
 env:
   - DOCKER_COMPOSE_VERSION=1.25.4
+  - APP_IMAGE_NAME="${DOCKER_HUB_USER}/reminder-api_server:last"
+  - DATABASE_IMAGE_NAME="${DOCKER_HUB_USER}/reminder-api_postgres:last"
+
 script:
   - docker-compose -f docker-compose.prod.yml up -d --build
 after_success:
