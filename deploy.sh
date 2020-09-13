@@ -13,4 +13,9 @@ chmod 600 /tmp/deploy_rsa
 ssh-add /tmp/deploy_rsa
 tar -czvf deploy.tar.gz ./docker-compose.prod.yml ./Dockerfile.prod ./remote_deploy.sh
 scp deploy.tar.gz deploy@68.183.73.58:/home/deploy/
-ssh deploy@68.183.73.58 "tar -xzf ./deploy.tar.gz && bash ./remote_deploy.sh"
+ssh deploy@68.183.73.58 bash << EOF
+  tar -xzf ./deploy.tar.gz
+  echo $DOCKER_HUB_USER
+EOF
+
+#"tar -xzf ./deploy.tar.gz && bash ./remote_deploy.sh"
