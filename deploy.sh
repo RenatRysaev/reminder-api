@@ -12,5 +12,5 @@ eval "$(ssh-agent -s)"
 chmod 600 /tmp/deploy_rsa
 ssh-add /tmp/deploy_rsa
 tar -czvf deploy.tar.gz ./docker-compose.prod.yml ./Dockerfile.prod ./remote_deploy.sh
-scp deploy.tar.gz deploy@68.183.73.58/
-ssh deploy@68.183.73.58 "echo 'success connected' && exit"
+scp deploy.tar.gz deploy@68.183.73.58:/home/deploy/
+ssh deploy@68.183.73.58 "tar -xzf ./deploy.tar.gz && bash ./remote_deploy.sh"
