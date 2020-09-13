@@ -11,4 +11,6 @@ openssl aes-256-cbc -K $encrypted_db2095f63ba3_key -iv $encrypted_db2095f63ba3_i
 eval "$(ssh-agent -s)"
 chmod 600 /tmp/deploy_rsa
 ssh-add /tmp/deploy_rsa
-ssh deploy@68.183.73.58 bash ./up.sh
+tar -czvf deploy.tar.gz ./docker-compose.prod.yml ./Dockerfile.prod ./remote_deploy.sh
+scp deploy.tar.gz deploy@68.183.73.58/
+ssh deploy@68.183.73.58 "echo 'success connected' && exit"
