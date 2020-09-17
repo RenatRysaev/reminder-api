@@ -23,7 +23,7 @@ ssh deploy@68.183.73.58 bash << EOF
   mv docker-compose.prod.yml docker-compose.yml
   echo $DOCKER_HUB_PASSWORD | docker login --username $DOCKER_HUB_USER --password-stdin
   docker-compose down
-  docker-compose up --no-build -d
+  docker-compose up -d
 EOF
 
 #"tar -xzf ./deploy.tar.gz && bash ./remote_deploy.sh"
