@@ -22,7 +22,7 @@ ssh deploy@68.183.73.58 bash << EOF
   tar -xzf ./deploy.tar.gz
   echo $DOCKER_HUB_PASSWORD | docker login --username $DOCKER_HUB_USER --password-stdin
   docker-compose down
-  docker-compose -f ./docker-compose.prod.yml up -d
+  docker-compose -f ./docker-compose.prod.yml up --no-build -d
 EOF
 
 #"tar -xzf ./deploy.tar.gz && bash ./remote_deploy.sh"
