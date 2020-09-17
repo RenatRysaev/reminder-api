@@ -15,16 +15,17 @@ openssl aes-256-cbc -K $encrypted_db2095f63ba3_key -iv $encrypted_db2095f63ba3_i
 eval "$(ssh-agent -s)"
 chmod 600 /tmp/deploy_rsa
 ssh-add /tmp/deploy_rsa
-tar -czvf deploy.tar.gz ./docker-compose.prod.yml ./Dockerfile.prod ./remote_deploy.sh
-scp deploy.tar.gz deploy@68.183.73.58:/home/deploy/
+
+tar -czvf app.tar.gz .
+scp app.tar.gz deploy@68.183.73.58:/home/deploy/app/
 
 ssh deploy@68.183.73.58 bash << EOF
-  tar -xzf ./deploy.tar.gz
-  mv docker-compose.prod.yml docker-compose.yml
+  tar -xzf ./app.tar.gz
+  cd app
   echo $DOCKER_HUB_PASSWORD | docker login --username $DOCKER_HUB_USER --password-stdin
   docker-compose pull
   docker-compose down
-  docker-compose up -d
+  docker-compose -f docker-compose.prod.yml up -d
 EOF
 
 #"tar -xzf ./deploy.tar.gz && bash ./remote_deploy.sh"
