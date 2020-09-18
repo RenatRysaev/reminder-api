@@ -16,18 +16,10 @@ eval "$(ssh-agent -s)"
 chmod 600 /tmp/deploy_rsa
 ssh-add /tmp/deploy_rsa
 
-printenv
-#ls ..
-#tar -czvf app.tar.gz .
-#scp -r app.tar.gz deploy@68.183.73.58:/home/deploy/app/
-
 ssh deploy@68.183.73.58 bash << EOF
-  tar -xzf ./app.tar.gz
-  cd app
+  git clone https://github.com/RenatRysaev/reminder-api.git && git checkout $TRAVIS_BRANCH || cd reminder-api && git pull $TRAVIS_BRANCH
   echo $DOCKER_HUB_PASSWORD | docker login --username $DOCKER_HUB_USER --password-stdin
   docker-compose pull
   docker-compose down
   docker-compose -f docker-compose.prod.yml up -d
 EOF
-
-#"tar -xzf ./deploy.tar.gz && bash ./remote_deploy.sh"
