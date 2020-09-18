@@ -16,9 +16,10 @@ eval "$(ssh-agent -s)"
 chmod 600 /tmp/deploy_rsa
 ssh-add /tmp/deploy_rsa
 
-ls ..
-tar -czvf app.tar.gz .
-scp -r app.tar.gz deploy@68.183.73.58:/home/deploy/app/
+printenv
+#ls ..
+#tar -czvf app.tar.gz .
+#scp -r app.tar.gz deploy@68.183.73.58:/home/deploy/app/
 
 ssh deploy@68.183.73.58 bash << EOF
   tar -xzf ./app.tar.gz
