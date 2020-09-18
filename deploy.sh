@@ -21,5 +21,5 @@ ssh deploy@68.183.73.58 bash << EOF
   echo $DOCKER_HUB_PASSWORD | docker login --username $DOCKER_HUB_USER --password-stdin
   docker-compose pull
   docker-compose down
-  docker-compose -f docker-compose.prod.yml up -d
+  docker-compose -f docker-compose.prod.yml up --force-recreate -d
 EOF
