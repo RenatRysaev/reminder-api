@@ -17,7 +17,7 @@ chmod 600 /tmp/deploy_rsa
 ssh-add /tmp/deploy_rsa
 
 ssh deploy@68.183.73.58 bash << EOF
-  git clone https://github.com/RenatRysaev/reminder-api.git && git checkout $TRAVIS_BRANCH || cd reminder-api && git pull $TRAVIS_BRANCH
+  git clone https://github.com/RenatRysaev/reminder-api.git && git checkout $TRAVIS_BRANCH || cd reminder-api && git checkout $TRAVIS_BRANCH && git pull $TRAVIS_BRANCH
   echo $DOCKER_HUB_PASSWORD | docker login --username $DOCKER_HUB_USER --password-stdin
   docker-compose pull
   docker-compose down
