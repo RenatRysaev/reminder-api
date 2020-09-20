@@ -1,7 +1,7 @@
 app:
   build:
     context: .
-    dockerfile: Dockerfile.prod
+    dockerfile: Dockerfile
   volumes:
     - .:/app/
     - /app/node_modules
