@@ -4,6 +4,8 @@ services:
   app:
     depends_on:
       - postgres
+    networks:
+      - app-network
     ports:
       - '9000:3000'
 
@@ -13,6 +15,12 @@ services:
       - '5432:5432'
     volumes:
       - dbdata:/data/db
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
 
 volumes:
   dbdata:
