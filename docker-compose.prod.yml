@@ -1,29 +1,14 @@
-version: '3'
-
-services:
-  server:
-    build:
-      context: .
-      dockerfile: Dockerfile.prod
-    depends_on:
-      - postgres
-    environment:
-      POSTGRES_HOST: $POSTGRES_HOST
-      POSTGRES_PORT: $POSTGRES_PORT
-      POSTGRES_USER: $POSTGRES_USER
-      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
-      POSTGRES_DB: $POSTGRES_DB
-      SERVER_PORT: $SERVER_PORT
-    ports:
-      - '9000:3000'
-    volumes:
-      - /app/node_modules
-    command: npm run start:prod
+app:
+  image: rysrenat/reminder-api_server:last
+  environment:
+    POSTGRES_HOST: $POSTGRES_HOST
+    POSTGRES_PORT: $POSTGRES_PORT
+    POSTGRES_USER: $POSTGRES_USER
+    POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+    POSTGRES_DB: $POSTGRES_DB
+    SERVER_PORT: $SERVER_PORT
 
   postgres:
-    image: postgres:10.4-alpine
-    ports:
-      - '5432:5432'
     environment:
       POSTGRES_HOST: $POSTGRES_HOST
       POSTGRES_PORT: $POSTGRES_PORT
@@ -31,9 +16,3 @@ services:
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
       POSTGRES_DB: $POSTGRES_DB
       SERVER_PORT: $SERVER_PORT
-    volumes:
-      - dbdata:/data/db
-
-volumes:
-  dbdata:
-  node_modules:
