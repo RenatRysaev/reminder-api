@@ -11,7 +11,7 @@ docker push "${DOCKER_HUB_USER}/reminder-api_server:last"
 #echo "Connect to VPS and up services"
 
 echo "DOCKER_HUB_USER=${DOCKER_HUB_USER}" > sshenv
-echo "DOCKER_HUB_PASSWORD=${$DOCKER_HUB_PASSWORD}" >> sshenv
+echo "DOCKER_HUB_PASSWORD=${DOCKER_HUB_PASSWORD}" >> sshenv
 
 openssl aes-256-cbc -K $encrypted_db2095f63ba3_key -iv $encrypted_db2095f63ba3_iv -in deploy_rsa.enc -out /tmp/deploy_rsa -d
 eval "$(ssh-agent -s)"
@@ -25,9 +25,3 @@ ssh deploy@68.183.73.58 bash << EOF
   docker-compose -f docker-compose.yml -f docker-compose.prod.yml pull
   docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
 EOF
-
-#  git clone https://github.com/RenatRysaev/reminder-api.git && git checkout $TRAVIS_BRANCH || cd reminder-api && git checkout $TRAVIS_BRANCH && git pull $TRAVIS_BRANCH
-#  echo $DOCKER_HUB_PASSWORD | docker login --username $DOCKER_HUB_USER --password-stdin
-#  docker-compose down
-#  docker-compose pull
-#  docker-compose -f docker-compose.ci.yml up -d
