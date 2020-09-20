@@ -1,7 +1,7 @@
 #!/bin/bash
 #echo "Push images to docker hub"
 echo $DOCKER_HUB_PASSWORD | docker login --username $DOCKER_HUB_USER --password-stdin
-docker-compose -f docker-compose.ci.yml build
+docker-compose -f docker-compose.yml -f docker-compose.ci.yml build
 docker tag reminder-api_server "${DOCKER_HUB_USER}/reminder-api_server:last"
 #docker tag postgres:10.4-alpine "${DOCKER_HUB_USER}/reminder-api_postgres:last"
 
