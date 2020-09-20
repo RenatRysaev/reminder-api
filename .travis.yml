@@ -11,6 +11,7 @@ addons:
 env:
   - DOCKER_COMPOSE_VERSION=1.25.4
 script:
-  - docker-compose -f docker-compose.prod.yml up -d --build
+  - echo "Testing..."
+
 after_success:
   - bash ./deploy.sh
