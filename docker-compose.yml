@@ -7,7 +7,7 @@ services:
     networks:
       - app-network
     ports:
-      - '9000:3000'
+      - '7000:3000'
 
   postgres:
     image: postgres:10.4-alpine
