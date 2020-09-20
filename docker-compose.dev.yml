@@ -1,12 +1,15 @@
-app:
-  build:
-    context: .
-    dockerfile: Dockerfile
-  volumes:
-    - .:/app/
-    - /app/node_modules
-  env_file: .env
-  command: npm run start:dev
+version: '3'
 
-postgres:
-  env_file: .env
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app/
+      - /app/node_modules
+    env_file: .env
+    command: npm run start:dev
+
+  postgres:
+    env_file: .env

@@ -8,10 +8,3 @@ services:
     depends_on:
       - postgres
     command: npm run start:prod
-
-  postgres:
-    volumes:
-      - dbdata:/data/db
-
-volumes:
-  dbdata:

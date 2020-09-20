@@ -1,15 +1,8 @@
-app:
-  image: rysrenat/reminder-api_server:last
-  environment:
-    POSTGRES_HOST: $POSTGRES_HOST
-    POSTGRES_PORT: $POSTGRES_PORT
-    POSTGRES_USER: $POSTGRES_USER
-    POSTGRES_PASSWORD: $POSTGRES_PASSWORD
-    POSTGRES_DB: $POSTGRES_DB
-    SERVER_PORT: $SERVER_PORT
-  command: npm run start:prod
+version: '3'
 
-  postgres:
+services:
+  app:
+    image: rysrenat/reminder-api_server:last
     environment:
       POSTGRES_HOST: $POSTGRES_HOST
       POSTGRES_PORT: $POSTGRES_PORT
@@ -17,3 +10,13 @@ app:
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
       POSTGRES_DB: $POSTGRES_DB
       SERVER_PORT: $SERVER_PORT
+    command: npm run start:prod
+
+    postgres:
+      environment:
+        POSTGRES_HOST: $POSTGRES_HOST
+        POSTGRES_PORT: $POSTGRES_PORT
+        POSTGRES_USER: $POSTGRES_USER
+        POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+        POSTGRES_DB: $POSTGRES_DB
+        SERVER_PORT: $SERVER_PORT
