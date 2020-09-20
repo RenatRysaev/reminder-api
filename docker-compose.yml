@@ -11,9 +11,8 @@ services:
     image: postgres:10.4-alpine
     ports:
       - '5432:5432'
-    postgres:
-      volumes:
-        - dbdata:/data/db
+    volumes:
+      - dbdata:/data/db
 
 volumes:
   dbdata:
