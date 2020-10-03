@@ -1,15 +1,15 @@
 import 'reflect-metadata'
 import * as express from 'express'
 import { createConnection } from 'typeorm'
+import bodyParser from 'body-parser'
 import config from './ormconfig'
 import { userRoutes } from './features/user/routes'
 
 const app = express()
 const port = process.env.SERVER_PORT || 3000
 
-app.get('/test', (req, res) => {
-  res.send({ ok: true, deploy: 'work' })
-})
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
 
 userRoutes(app)
 
