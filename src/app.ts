@@ -1,7 +1,7 @@
 import 'reflect-metadata'
 import * as express from 'express'
 import { createConnection } from 'typeorm'
-import bodyParser from 'body-parser'
+import * as bodyParser from 'body-parser'
 import config from './ormconfig'
 import { userRoutes } from './features/user/routes'
 
