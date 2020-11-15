@@ -19,14 +19,11 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "pg": "^8.3.3",
-    "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.25"
+    "mysql2": "^2.2.5"
   },
   "devDependencies": {
     "@types/express": "^4.17.8",
     "@types/node": "^14.6.4",
-    "@types/pg": "^7.14.4",
     "dotenv": "^8.2.0",
     "husky": "^4.2.5",
     "nodemon": "^2.0.4",
