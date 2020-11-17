@@ -1,10 +1,12 @@
 import { Request, Response } from 'express'
 import { getRepository, Repository } from 'typeorm'
 import * as argon2 from 'argon2'
+import * as jwt from 'jsonwebtoken'
 import { User } from './User.entity'
 
 export interface IUserController {
   signUp: (req: Request, res: Response) => Promise<void>
+  signIn: (req: Request, res: Response) => Promise<void>
 }
 
 export class UserController implements IUserController {
@@ -29,6 +31,48 @@ export class UserController implements IUserController {
 
       await this.userRepository.save(user)
       res.status(201).send()
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  public signIn = async (req: Request, res: Response) => {
+    try {
+      const { email, password } = req.body
+
+      const userRecord = await this.userRepository.findOne({ email })
+      if (!userRecord) {
+        res.send({ message: 'Incorrect login or password' })
+        return
+      }
+
+      const isCorrectPassword = await argon2.verify(userRecord.password, password)
+      if (!isCorrectPassword) {
+        res.send({ message: 'Incorrect login or password' })
+        return
+      }
+
+      const jwtPayload = { email }
+      const accessToken = jwt.sign(jwtPayload, String(process.env.ACCESS_TOKEN_SECRET), {
+        algorithm: 'HS256',
+        expiresIn: '1h',
+      })
+      const refreshToken = jwt.sign(
+        jwtPayload,
+        String(process.env.REFRESH_TOKEN_SECRET),
+        {
+          algorithm: 'HS256',
+          expiresIn: '3h',
+        },
+      )
+
+      // res.cookie('accessToken', accessToken, { secure: true, httpOnly: true })
+      // res.cookie('refreshToken', refreshToken, { secure: true, httpOnly: true })
+      res.send({
+        accessToken,
+        refreshToken,
+        expiresIn: '1h',
+      })
     } catch (err) {
       console.log(err)
     }
