@@ -12,7 +12,7 @@ export class UserRoutes implements IUserRoutes {
     this.userController = new UserController()
   }
 
-  public createRoutes(app: Application) {
-    app.post('/user/register', this.userController.registerUser)
+  public createRoutes = (app: Application) => {
+    app.post('/user/signUp', this.userController.signUp)
   }
 }

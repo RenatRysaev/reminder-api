@@ -2,8 +2,8 @@ import { Entity, Column, PrimaryColumn } from 'typeorm'
 
 export interface IUser {
   id: string
-  name: string
-  surname: string
+  firstName: string
+  lastName: string
   email: string
   password: string
 }
@@ -14,10 +14,10 @@ export class User implements IUser {
   id: string
 
   @Column()
-  name: string
+  firstName: string
 
   @Column()
-  surname: string
+  lastName: string
 
   @Column()
   email: string
