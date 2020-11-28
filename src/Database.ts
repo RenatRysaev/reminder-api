@@ -1,12 +1,20 @@
-import { createConnection, ConnectionOptions } from 'typeorm'
-import { Connection } from 'typeorm/connection/Connection'
+import { createConnection, Connection } from 'typeorm'
 
 export class Database {
-  private static connection: Promise<Connection>
+  private static connection: Connection
 
-  public static createConnection(databaseConfig: ConnectionOptions) {
+  public static async getConnection() {
     if (!Database.connection) {
-      Database.connection = createConnection(databaseConfig)
+      Database.connection = await createConnection({
+        type: 'mysql',
+        host: 'localhost',
+        port: 3306,
+        username: 'root',
+        password: '',
+        database: 'reminder',
+        entities: [__dirname + '/**/*.entity.ts'],
+        synchronize: true,
+      })
     }
 
     return Database.connection

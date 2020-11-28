@@ -6,12 +6,16 @@ export interface IUser {
   lastName: string
   email: string
   password: string
+  refreshToken?: string
 }
 
 @Entity()
 export class User implements IUser {
-  @PrimaryColumn()
+  @PrimaryColumn({ unique: true })
   id: string
+
+  @Column({ unique: true })
+  email: string
 
   @Column()
   firstName: string
@@ -20,8 +24,8 @@ export class User implements IUser {
   lastName: string
 
   @Column()
-  email: string
-
-  @Column()
   password: string
+
+  @Column({ nullable: true })
+  refreshToken: string
 }

@@ -19,6 +19,15 @@ export class UserController implements IUserController {
   public signUp = async (req: Request, res: Response) => {
     try {
       const { firstName, lastName, email, id, password } = req.body
+
+      const isExistUserWithSameIdOrEmail = await this.userRepository.findOne({
+        where: [{ id }, { email }],
+      })
+      if (isExistUserWithSameIdOrEmail) {
+        res.status(400).send({ message: 'User with same id or email already exist' })
+        return
+      }
+
       const user = new User()
 
       const hashedPassword = await argon2.hash(password)
@@ -66,13 +75,12 @@ export class UserController implements IUserController {
         },
       )
 
-      // res.cookie('accessToken', accessToken, { secure: true, httpOnly: true })
-      // res.cookie('refreshToken', refreshToken, { secure: true, httpOnly: true })
-      res.send({
-        accessToken,
-        refreshToken,
-        expiresIn: '1h',
-      })
+      userRecord.refreshToken = refreshToken
+      await this.userRepository.save(userRecord)
+
+      res.cookie('accessToken', accessToken, { secure: true, httpOnly: true })
+      res.cookie('refreshToken', refreshToken, { secure: true, httpOnly: true })
+      res.send()
     } catch (err) {
       console.log(err)
     }
