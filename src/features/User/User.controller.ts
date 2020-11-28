@@ -24,7 +24,7 @@ export class UserController implements IUserController {
         where: [{ id }, { email }],
       })
       if (isExistUserWithSameIdOrEmail) {
-        res.status(400).send({ message: 'User with same id or email already exist' })
+        res.status(409).send({ message: 'User with same id or email already exist' })
         return
       }
 
@@ -51,13 +51,13 @@ export class UserController implements IUserController {
 
       const userRecord = await this.userRepository.findOne({ email })
       if (!userRecord) {
-        res.send({ message: 'Incorrect login or password' })
+        res.status(401).send({ message: 'Incorrect login or password' })
         return
       }
 
       const isCorrectPassword = await argon2.verify(userRecord.password, password)
       if (!isCorrectPassword) {
-        res.send({ message: 'Incorrect login or password' })
+        res.status(401).send({ message: 'Incorrect login or password' })
         return
       }
 
@@ -80,7 +80,7 @@ export class UserController implements IUserController {
 
       res.cookie('accessToken', accessToken, { secure: true, httpOnly: true })
       res.cookie('refreshToken', refreshToken, { secure: true, httpOnly: true })
-      res.send()
+      res.status(200).send()
     } catch (err) {
       console.log(err)
     }

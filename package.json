@@ -22,6 +22,7 @@
     "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.20",
     "mysql2": "^2.2.5",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.29"
@@ -31,6 +32,7 @@
     "@types/express": "^4.17.9",
     "@types/jest": "^26.0.15",
     "@types/jsonwebtoken": "^8.5.0",
+    "@types/lodash": "^4.14.165",
     "@types/node": "^14.14.10",
     "@types/supertest": "^2.0.10",
     "dotenv": "^8.2.0",

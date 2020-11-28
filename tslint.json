@@ -4,5 +4,8 @@
   "rules": {
     "prettier": true,
     "interface-name": true
+  },
+  "linterOptions": {
+    "exclude": ["src/**/*.test.ts"]
   }
 }
